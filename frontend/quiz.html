@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Hair Tokens - HairGuard AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            min-height: 60vh;
+        }
+
+        .token-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .token-balance {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .token-icon {
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        .question-card {
+            padding: 3rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .option-btn {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .option-btn.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .quiz-progress {
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* Blob */
+        .blob-quiz {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob-quiz"></div>
+
+    <div id="app">
+        <header>
+            <nav class="glass-nav">
+                <div class="logo" style="display: flex; align-items: center;">
+                    <img src="icon_logo.png" alt="HairGuard AI Logo"
+                        style="height: 32px; width: auto; margin-right: 8px;"> HairGuard AI
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-btn link-btn" style="text-decoration:none;">Dashboard</a>
+                    <a href="scanner.html" class="nav-btn link-btn" style="text-decoration:none;">Scanner</a>
+                    <a href="quiz.html" class="nav-btn active link-btn" style="text-decoration:none;">Quiz & Tokens</a>
+                    <a href="chatbot.html" class="nav-btn link-btn" style="text-decoration:none;">AI Chatbot</a>
+                    <a href="concept.html" class="nav-btn link-btn" style="text-decoration:none;">Concepts</a>
+                    <a href="login.html" class="btn-primary small"
+                        style="text-decoration:none; padding: 0.5rem 1rem;">Logout</a>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">U</div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <div class="quiz-container fade-in">
+
+                <div class="token-header">
+                    <div>
+                        <h2 style="margin:0;">Daily Hair Quiz</h2>
+                        <p class="text-muted" style="margin:0;">Answer correctly to earn Hair Tokens!</p>
+                    </div>
+                    <div class="token-balance">
+                        <span class="token-icon">🪙</span>
+                        <span id="token-count">0</span>
+                    </div>
+                </div>
+
+                <div class="glass-card question-card" id="quiz-block">
+                    <div class="quiz-progress">Question <span id="current-q">1</span> of 5</div>
+                    <h2 id="question-text">Which of the following compounds is generally considered bad for daily
+                        shampoo routines because it strips natural oils?</h2>
+
+                    <div class="options-grid" id="options-container">
+                        <button class="option-btn" onclick="checkAnswer(this, true)">Sodium Lauryl Sulfate
+                            (SLS)</button>
+                        <button class="option-btn" onclick="checkAnswer(this, false)">Aloe Vera</button>
+                        <button class="option-btn" onclick="checkAnswer(this, false)">Argan Oil</button>
+                        <button class="option-btn" onclick="checkAnswer(this, false)">Biotin</button>
+                    </div>
+
+                    <div id="quiz-feedback" class="mt-4 fade-in"
+                        style="display: none; padding: 1rem; border-radius: 8px;">
+                        <h3 id="feedback-title"></h3>
+                        <p id="feedback-desc" class="mt-1"></p>
+                        <button class="btn-primary mt-2" onclick="nextQuestion()">Next Question ➔</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <div class="medical-disclaimer glass-card">
+            <p><strong>Disclaimer:</strong> This tool provides educational quizzes and is NOT a substitute for
+                professional medical advice.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple inline logic for this demo page. Will be expanded in app.js
+        let tokens = parseInt(localStorage.getItem('hair_tokens') || '0');
+        document.getElementById('token-count').innerText = tokens;
+
+        function checkAnswer(btn, isCorrect) {
+            // Disable all buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            const feedbackBox = document.getElementById('quiz-feedback');
+            const title = document.getElementById('feedback-title');
+            const desc = document.getElementById('feedback-desc');
+
+            feedbackBox.style.display = 'block';
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                feedbackBox.style.background = 'rgba(16, 185, 129, 0.1)';
+                title.innerText = "Correct! 🎉";
+                title.style.color = "var(--success)";
+                desc.innerText = "SLS is a harsh detergent that strips scalp oils. You earned +5 Tokens!";
+                tokens += 5;
+                localStorage.setItem('hair_tokens', tokens);
+
+                // Animate token counter
+                const tokenElement = document.getElementById('token-count');
+                tokenElement.innerText = tokens;
+                tokenElement.style.color = 'var(--success)';
+                tokenElement.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    tokenElement.style.transform = 'scale(1)';
+                    tokenElement.style.color = 'inherit';
+                }, 300);
+
+            } else {
+                btn.classList.add('wrong');
+                feedbackBox.style.background = 'rgba(239, 68, 68, 0.1)';
+                title.innerText = "Not quite.";
+                title.style.color = "var(--danger)";
+                desc.innerText = "The correct answer was Sodium Lauryl Sulfate (SLS).";
+
+                // Highlight correct one
+                buttons.forEach(b => {
+                    if (b.innerText.includes("Sulfate")) b.classList.add('correct');
+                });
+            }
+        }
+
+        function nextQuestion() {
+            alert("More questions can be loaded dynamically here! For now, congratulations on earning tokens.");
+        }
+    </script>
+</body>
+
+</html>

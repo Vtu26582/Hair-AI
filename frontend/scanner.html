@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Scanner - HairGuard AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .scanner-layout {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #1e293b;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 4px solid var(--border);
+        }
+
+        .placeholder-box {
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .camera-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .scanner-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .analysis-results {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+            margin-top: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <nav class="glass-nav">
+                <div class="logo" style="display: flex; align-items: center;">
+                    <img src="icon_logo.png" alt="HairGuard AI Logo"
+                        style="height: 32px; width: auto; margin-right: 8px;"> HairGuard AI
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-btn link-btn" style="text-decoration:none;">Dashboard</a>
+                    <a href="scanner.html" class="nav-btn active link-btn" style="text-decoration:none;">Scanner</a>
+                    <a href="quiz.html" class="nav-btn link-btn" style="text-decoration:none;">Quiz & Tokens</a>
+                    <a href="chatbot.html" class="nav-btn link-btn" style="text-decoration:none;">AI Chatbot</a>
+                    <a href="concept.html" class="nav-btn link-btn" style="text-decoration:none;">Concepts</a>
+                    <a href="login.html" class="btn-primary small"
+                        style="text-decoration:none; padding: 0.5rem 1rem;">Logout</a>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <div class="scanner-layout fade-in">
+                <h2>AI Hair Condition Scanner</h2>
+                <p class="subtitle mt-2">Upload an image of your scalp or use your webcam to assess hair thinning stages
+                    instantly.</p>
+
+                <div class="scanner-interface mt-4">
+                    <div class="video-wrapper">
+                        <video id="webcam-video" autoplay playsinline style="display: none;"></video>
+                        <canvas id="snapshot-canvas" style="display: none;"></canvas>
+                        <div id="scanner-placeholder" class="placeholder-box">
+                            <span class="camera-icon">📷</span>
+                            <p>Camera is off</p>
+                        </div>
+                    </div>
+
+                    <div class="scanner-controls">
+                        <button id="btn-camera" class="btn-primary">
+                            <span>Open Camera</span>
+                        </button>
+                        <button id="btn-capture" class="btn-primary" style="display: none;">
+                            <span>Capture Image</span>
+                        </button>
+                        <label for="img-upload" class="btn-secondary">
+                            <span>Upload Image</span>
+                        </label>
+                        <input type="file" id="img-upload" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <div id="analysis-results" class="analysis-results fade-in" style="display: none;">
+                    <h3>Analysis Complete</h3>
+                    <div class="result-breakdown mt-2">
+                        <p><strong>Predicted Stage:</strong> <span id="res-condition"
+                                class="highlight">Analyzing...</span></p>
+                        <p><strong>Confidence:</strong> <span id="res-confidence">--</span>%</p>
+                        <div class="progress-track mt-2">
+                            <div class="progress-bar bg-success" id="res-progress" style="width: 0%;"></div>
+                        </div>
+                        <p class="subtitle mt-2">Recommendation: <span id="res-recommendation">--</span></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- We'll continue to use app.js but the scanner specific logic in app.js must execute conditionally if elements exist -->
+    <script src="app.js"></script>
+</body>
+
+</html>

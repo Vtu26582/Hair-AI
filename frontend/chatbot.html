@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hair Consultant - HairGuard AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .chat-layout {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 150px);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .chat-history {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            scrollbar-width: thin;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            line-height: 1.6;
+            animation: slideUp 0.3s ease;
+        }
+
+        .bot-message {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--border);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            border-radius: 0 0 16px 16px;
+        }
+
+        .chat-input-area input {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            background: white;
+            font-size: 1.05rem;
+        }
+
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .send-btn {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        /* Blob */
+        .blob-chat {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            animation: float 10s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob-chat"></div>
+
+    <div id="app">
+        <header>
+            <nav class="glass-nav">
+                <div class="logo" style="display: flex; align-items: center;">
+                    <img src="icon_logo.png" alt="HairGuard AI Logo"
+                        style="height: 32px; width: auto; margin-right: 8px;"> HairGuard AI
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-btn link-btn" style="text-decoration:none;">Dashboard</a>
+                    <a href="scanner.html" class="nav-btn link-btn" style="text-decoration:none;">Scanner</a>
+                    <a href="quiz.html" class="nav-btn link-btn" style="text-decoration:none;">Quiz & Tokens</a>
+                    <a href="chatbot.html" class="nav-btn active link-btn" style="text-decoration:none;">AI Chatbot</a>
+                    <a href="concept.html" class="nav-btn link-btn" style="text-decoration:none;">Concepts</a>
+                    <a href="login.html" class="btn-primary small"
+                        style="text-decoration:none; padding: 0.5rem 1rem;">Logout</a>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <div class="chat-layout glass-card fade-in" style="padding:0;">
+
+                <div class="chat-header"
+                    style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+                    <div class="bot-avatar" style="font-size: 2rem;">🤖</div>
+                    <div>
+                        <h2 style="margin:0; font-size: 1.25rem;">Dr. Follicle AI</h2>
+                        <p class="subtitle" style="margin:0; font-size: 0.9rem;">Specialized Dermatology & Trichology
+                            Model</p>
+                    </div>
+                </div>
+
+                <div class="chat-history" id="chat-history">
+                    <div class="message bot-message">
+                        <p>Hello! I'm Dr. Follicle, your specialized AI Hair Health Consultant. How can I help you
+                            today? You can ask me about treatments, your routine, or potential causes for hair loss.</p>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Ask anything about hair health..."
+                        autocomplete="off">
+                    <button id="send-btn" class="btn-primary send-btn" onclick="sendMessage()">
+                        <span>↑</span>
+                    </button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const chatInput = document.getElementById('chat-input');
+        const chatHistory = document.getElementById('chat-history');
+
+        chatInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        async function sendMessage() {
+            const query = chatInput.value.trim();
+            if (!query) return;
+
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user-message';
+            userMsg.innerHTML = `<p>${query}</p>`;
+            chatHistory.appendChild(userMsg);
+
+            chatInput.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message bot-message fade-in';
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.innerHTML = '<p><em>Dr. Follicle is typing...</em></p>';
+            chatHistory.appendChild(typingIndicator);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            try {
+                // Call backend API
+                const response = await fetch('http://127.0.0.1:8000/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: query })
+                });
+
+                const data = await response.json();
+
+                // Remove typing indicator
+                const tempIndicator = document.getElementById('typing-indicator');
+                if (tempIndicator) tempIndicator.remove();
+
+                // Format simple markdown into HTML (bold and line breaks)
+                const formattedHtml = data.response
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/### (.*?)\<br\>/g, '<h3>$1</h3>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                const botMsg = document.createElement('div');
+                botMsg.className = 'message bot-message fade-in';
+                botMsg.innerHTML = `<p>${formattedHtml}</p>`;
+                chatHistory.appendChild(botMsg);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            } catch (error) {
+                // Remove typing indicator
+                const tempIndicator = document.getElementById('typing-indicator');
+                if (tempIndicator) tempIndicator.remove();
+
+                const botMsg = document.createElement('div');
+                botMsg.className = 'message bot-message fade-in';
+                botMsg.innerHTML = `<p style="color: red;">Cannot connect to AI server. Please ensure the backend is running.</p>`;
+                chatHistory.appendChild(botMsg);
+            }
+        }
+    </script>
+</body>
+
+</html>

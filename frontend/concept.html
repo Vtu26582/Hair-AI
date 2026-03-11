@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hair Health Concepts</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <nav class="glass-nav">
+                <div class="logo" style="display: flex; align-items: center;">
+                    <img src="icon_logo.png" alt="HairGuard AI Logo"
+                        style="height: 32px; width: auto; margin-right: 8px;"> HairGuard AI
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-btn link-btn" style="text-decoration:none;">Dashboard</a>
+                    <a href="scanner.html" class="nav-btn link-btn" style="text-decoration:none;">Scanner</a>
+                    <a href="quiz.html" class="nav-btn link-btn" style="text-decoration:none;">Quiz & Tokens</a>
+                    <a href="chatbot.html" class="nav-btn link-btn" style="text-decoration:none;">AI Chatbot</a>
+                    <a href="concept.html" class="nav-btn active link-btn" style="text-decoration:none;">Concepts</a>
+                    <a href="login.html" class="btn-primary small"
+                        style="text-decoration:none; padding: 0.5rem 1rem;">Logout</a>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">U</div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <div class="dashboard-container fade-in">
+                <div class="header-section text-center">
+                    <h1>Hair Health <span class="highlight">Concepts & Simulation</span></h1>
+                    <p class="subtitle mt-2">Understanding the medical stages of hair loss visually.</p>
+                </div>
+
+                <div class="metrics-grid" style="grid-template-columns: 1fr;">
+                    <!-- Hair Fall Video Animation Component -->
+                    <div class="glass-card animation-card full-width fade-in" style="animation-delay: 0.2s;">
+                        <div class="animation-header">
+                            <div>
+                                <h2>Hair Fall Stages Simulation</h2>
+                                <p class="subtitle" style="margin-top:0.25rem;">Visual progression from Stage 1 to Stage
+                                    4</p>
+                            </div>
+                            <button id="play-animation" class="btn-primary small">
+                                <span class="play-icon">▶</span> <span id="play-text">Play Animation</span>
+                            </button>
+                        </div>
+                        <div class="stages-container">
+                            <div class="stage-visual" id="stage-visual">
+                                <svg viewBox="0 0 400 500" class="head-svg stage-1" id="hair-layer">
+                                    <defs>
+                                        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                            <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.15" />
+                                        </filter>
+                                        <filter id="soft-shadow">
+                                            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                                            <feOffset dx="0" dy="4" result="offsetblur" />
+                                            <feComponentTransfer>
+                                                <feFuncA type="linear" slope="0.2" />
+                                            </feComponentTransfer>
+                                            <feMerge>
+                                                <feMergeNode />
+                                                <feMergeNode in="SourceGraphic" />
+                                            </feMerge>
+                                        </filter>
+                                    </defs>
+
+                                    <!-- Neck and Shoulders -->
+                                    <path fill="#f1f5f9"
+                                        d="M120,380 L280,380 C320,380 360,450 380,500 L20,500 C40,450 80,380 120,380 Z" />
+                                    <path fill="#e2e8f0" d="M150,320 L250,320 L280,400 L120,400 Z" />
+
+                                    <!-- Head/Face Base -->
+                                    <path fill="#fff"
+                                        d="M200,50 C280,50 320,130 320,220 C320,320 270,390 200,390 C130,390 80,320 80,220 C80,130 120,50 200,50 Z"
+                                        filter="url(#shadow)" />
+
+                                    <!-- Facial Features -->
+                                    <path fill="#f8fafc"
+                                        d="M80,210 C60,210 60,260 85,270 M320,210 C340,210 340,260 315,270"
+                                        stroke="#cbd5e1" stroke-width="2" />
+                                    <path fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round"
+                                        d="M130,200 Q150,190 170,200 M230,200 Q250,190 270,200" />
+                                    <path fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"
+                                        d="M135,220 Q150,225 165,220 M235,220 Q250,225 265,220" />
+                                    <path fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"
+                                        d="M200,220 L200,270 Q210,275 215,265" />
+                                    <path fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"
+                                        d="M180,310 Q200,320 220,310" />
+
+                                    <!-- HAIR SYSTEM -->
+                                    <g id="hair-group" filter="url(#soft-shadow)">
+                                        <path class="hair-base" fill="#0f172a"
+                                            d="M80,220 C70,140 100,50 200,45 C300,50 330,140 320,220 L330,260 C330,300 300,320 280,310 L270,220 C270,150 240,80 200,80 C160,80 130,150 130,220 L120,310 C100,320 70,300 70,260 Z" />
+                                        <path class="hair-crown" fill="#1e293b"
+                                            d="M110,130 C120,60 280,60 290,130 C290,200 250,220 200,220 C150,220 110,200 110,130 Z" />
+                                        <path class="hair-front hair-front-right" fill="#0f172a"
+                                            d="M200,80 C240,80 290,100 310,160 C300,200 270,180 250,150 C230,120 220,110 200,110 Z"
+                                            transform-origin="200 120" />
+                                        <path class="hair-front hair-front-left" fill="#0f172a"
+                                            d="M200,80 C160,80 110,100 90,160 C100,200 130,180 150,150 C170,120 180,110 200,110 Z"
+                                            transform-origin="200 120" />
+                                        <path class="hair-front hair-front-center" fill="#1e293b"
+                                            d="M170,120 C190,150 210,150 230,120 C250,90 220,80 200,80 C180,80 150,90 170,120 Z"
+                                            transform-origin="200 100" />
+                                        <path class="hair-texture" fill="none" stroke="#0f172a" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-dasharray="1,8"
+                                            d="M140,100 Q200,60 260,100 M130,140 Q200,100 270,140 M150,180 Q200,150 250,180 M180,210 Q200,190 220,210" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <div class="video-progress">
+                                <div class="progress-track">
+                                    <div class="progress-bar" id="anim-progress"></div>
+                                </div>
+                                <div class="stage-labels" id="stage-labels">
+                                    <span class="active" data-stage="1">Stage 1: Full Hair</span>
+                                    <span data-stage="2">Stage 2: Receding</span>
+                                    <span data-stage="3">Stage 3: Thinning</span>
+                                    <span data-stage="4">Stage 4: Severe Loss</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="concept-details mt-4" style="text-align: left; padding: 1rem;">
+                            <h3>The Norwood Scale Concept</h3>
+                            <p class="text-muted mt-2">The animation above follows the standard progression of male
+                                pattern baldness (Androgenetic Alopecia). By understanding these stages, our AI can
+                                predict future patterns and recommend interventions earlier in the process.</p>
+                        </div>
+                    </div>
+                </div>
+        </main>
+
+        <div class="medical-disclaimer glass-card">
+            <p><strong>Disclaimer:</strong> This tool provides AI-driven analysis and is NOT a substitute for
+                professional medical advice, diagnosis, or treatment. Always consult with a qualified dermatologist or
+                trichologist regarding any hair or scalp concerns.</p>
+            <button id="accept-disclaimer" class="btn-primary small">I Understand</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

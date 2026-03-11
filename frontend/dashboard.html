@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hair Health Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <nav class="glass-nav">
+                <div class="logo" style="display: flex; align-items: center;">
+                    <img src="icon_logo.png" alt="HairGuard AI Logo"
+                        style="height: 32px; width: auto; margin-right: 8px;"> HairGuard AI
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-btn active link-btn" style="text-decoration:none;">Dashboard</a>
+                    <a href="scanner.html" class="nav-btn link-btn" style="text-decoration:none;">Scanner</a>
+                    <a href="quiz.html" class="nav-btn link-btn" style="text-decoration:none;">Quiz & Tokens</a>
+                    <a href="chatbot.html" class="nav-btn link-btn" style="text-decoration:none;">AI Chatbot</a>
+                    <a href="concept.html" class="nav-btn link-btn" style="text-decoration:none;">Concepts</a>
+                    <a href="login.html" class="btn-primary small"
+                        style="text-decoration:none; padding: 0.5rem 1rem;">Logout</a>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">U</div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <div class="dashboard-container fade-in">
+                <div class="header-section">
+                    <h1>Welcome back, <span class="highlight">User</span></h1>
+                    <p class="subtitle">Here is your daily hair wellness summary.</p>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="glass-card main-score-card">
+                        <h2>Overall Health Score</h2>
+                        <div class="score-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart green">
+                                <path class="circle-bg" d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path class="circle" stroke-dasharray="85, 100" d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <text x="18" y="20.35" class="percentage">85</text>
+                            </svg>
+                        </div>
+                        <p class="status-text target-good">Excellent Progress</p>
+                    </div>
+
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon">💧</div>
+                        <div class="stat-info">
+                            <h3>Hydration Level</h3>
+                            <p class="stat-value">Optimal</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-info">
+                            <h3>Current Streak</h3>
+                            <p class="stat-value">12 Days</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card chart-card full-width">
+                        <h2>Health Progression</h2>
+                        <div class="chart-container">
+                            <canvas id="progressionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Link to detailed concept and animation -->
+                    <div class="glass-card full-width fade-in"
+                        style="animation-delay: 0.2s; text-align: center; padding: 2rem;">
+                        <h2>Hair Fall Stages & Simulation</h2>
+                        <p class="subtitle" style="margin: 1rem 0;">Explore the detailed medical concepts and watch the
+                            visual simulation of hair loss progression.</p>
+                        <a href="concept.html" class="btn-primary"
+                            style="display: inline-block; text-decoration: none;">View Animation & Concept</a>
+                    </div>
+                </div>
+        </main>
+
+        <div class="medical-disclaimer glass-card">
+            <p><strong>Disclaimer:</strong> This tool provides AI-driven analysis and is NOT a substitute for
+                professional medical advice, diagnosis, or treatment. Always consult with a qualified dermatologist or
+                trichologist regarding any hair or scalp concerns.</p>
+            <button id="accept-disclaimer" class="btn-primary small">I Understand</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

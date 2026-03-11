@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HairGuard AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .auth-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .auth-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            background: #fff;
+        }
+
+        .auth-toggle {
+            margin-top: 2rem;
+            color: var(--text-muted);
+        }
+
+        .auth-toggle a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .auth-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        /* Blobs */
+        .blob-3 {
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            width: 250px;
+            height: 250px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: -1;
+            animation: float 14s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob-3"></div>
+
+    <div id="app">
+        <header>
+            <nav class="glass-nav">
+                <div class="logo" style="display: flex; align-items: center;">
+                    <img src="icon_logo.png" alt="HairGuard AI Logo"
+                        style="height: 32px; width: auto; margin-right: 8px;"> HairGuard AI
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-btn link-btn" style="text-decoration:none;">Home</a>
+                    <a href="concept.html" class="nav-btn link-btn" style="text-decoration:none;">Concepts</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="auth-container">
+            <div class="glass-card auth-card fade-in">
+                <div class="auth-logo">🌿</div>
+                <h2 style="margin-bottom: 0.5rem;">Welcome Back</h2>
+                <p class="subtitle" style="margin-bottom: 2rem;">Sign in to access your dashboard and daily streak.</p>
+
+                <form id="login-form" action="dashboard.html"
+                    onsubmit="window.location.href='dashboard.html'; return false;">
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full"
+                        style="padding: 1rem; font-size: 1.1rem; margin-top: 1rem;">Sign In</button>
+                </form>
+
+                <p class="auth-toggle">Don't have an account? <a href="#">Create one</a></p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
